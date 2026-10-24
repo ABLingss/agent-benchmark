@@ -1,0 +1,8 @@
+[
+  {"id":"rice","name":"香菇鸡腿饭","category":"主食","unitPrice":1890,"description":"鸡腿、香菇与时蔬搭配米饭"},
+  {"id":"noodles","name":"番茄牛肉面","category":"主食","unitPrice":2290,"description":"番茄汤底，搭配牛肉与面条"},
+  {"id":"salad","name":"时蔬沙拉","category":"轻食","unitPrice":1590,"description":"生菜、玉米、番茄与独立酱汁"},
+  {"id":"soup","name":"紫菜蛋花汤","category":"小食","unitPrice":500,"description":"清爽热汤，适合搭配主食"},
+  {"id":"tea","name":"茉莉冷泡茶","category":"饮品","unitPrice":800,"description":"无糖茶饮"},
+  {"id":"dumplings","name":"鲜肉小笼包","category":"小食","unitPrice":1290,"description":"一份六只"}
+]

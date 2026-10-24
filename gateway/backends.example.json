@@ -1,0 +1,6 @@
+{
+  "backends": [
+    {"id": "a", "base_url": "http://127.0.0.1:8001/v1", "capacity": 2},
+    {"id": "b", "base_url": "http://127.0.0.1:8002/v1", "capacity": 2}
+  ]
+}

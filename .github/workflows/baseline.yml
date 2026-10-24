@@ -1,0 +1,15 @@
+name: Starter baseline
+on: [push, workflow_dispatch]
+jobs:
+  baseline:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Existing gateway behavior
+        working-directory: gateway
+        run: python -m unittest discover -s tests -v
+      - name: Python syntax
+        run: python -m compileall -q gateway frontend/serve.py
