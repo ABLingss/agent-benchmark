@@ -12,4 +12,6 @@ jobs:
         working-directory: gateway
         run: python -m unittest discover -s tests -v
       - name: Python syntax
-        run: python -m compileall -q gateway frontend/serve.py
+        run: python -m compileall -q gateway frontend/serve.py submission
+      - name: Submission service
+        run: python -m unittest discover -s submission/tests -v

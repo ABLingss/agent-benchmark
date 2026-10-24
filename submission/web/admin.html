@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>面试官管理台 · Agent Benchmark</title><link rel="stylesheet" href="/site.css"><script src="/admin.js" defer></script></head>
+<body>
+<header class="topbar"><a class="brand" href="/">ERQI<span>AGENT BENCHMARK</span></a><span class="private-label">本机 · 面试官管理台</span></header>
+<main class="admin-shell">
+  <section class="admin-intro"><div><p class="eyebrow">SUBMISSION DESK</p><h1>作品已就位，<br>现在开始验收。</h1></div><button id="refresh" class="secondary">刷新列表</button></section>
+  <section class="share-grid">
+    <div class="panel share-panel"><div class="panel-heading"><h2>候选人提交入口</h2><span id="tunnel-status" class="badge">本地</span></div><div class="link-row"><input id="public-url" aria-label="候选人提交链接" readonly><button id="copy-url" class="secondary">复制链接</button></div><div class="share-bottom"><div>提交口令 <strong id="exam-code" class="access-code"></strong><button class="text-button" id="copy-code">复制</button></div><div class="button-row"><button class="primary" id="tunnel-start">生成外网链接</button><button class="secondary" id="tunnel-stop" hidden>关闭外网</button></div></div><p class="fineprint">只分享上面的候选人链接。管理页只在本机开放，不经过 Tunnel。</p><p class="message" id="tunnel-message" role="status"></p></div>
+    <div class="panel environment-panel"><div class="panel-heading"><h2>验收环境</h2><button id="accepting" class="text-button">暂停接收</button></div><div class="environment-item"><span>题一 · 推理网关</span><strong id="gateway-ready"></strong></div><div class="environment-item"><span>题二 · 点餐结算页</span><strong id="frontend-ready"></strong></div><p class="fineprint" id="environment-help">检测中…</p></div>
+  </section>
+  <section class="stats" aria-label="提交统计"><div><span>全部提交</span><strong id="stat-total">0</strong></div><div><span>待运行 / 排队</span><strong id="stat-pending">0</strong></div><div><span>运行中</span><strong id="stat-running">0</strong></div><div><span>测试全通过</span><strong id="stat-passed">0</strong></div></section>
+  <section class="panel submissions-panel"><div class="panel-heading"><div><h2>提交记录</h2><p class="fineprint">确认来源后手动运行。测试在本机执行，一次验收一份提交。</p></div><button id="export-results" class="text-button">导出结果 JSON ↓</button></div><div id="admin-message" class="message" role="status" aria-live="polite"></div><div class="table-scroll"><table><thead><tr><th>候选人 / 回执</th><th>题目</th><th>提交时间</th><th>状态</th><th>自动分</th><th>操作</th></tr></thead><tbody id="submission-rows"></tbody></table></div><div id="admin-empty" class="empty-state"><span class="empty-mark">—</span><p>等待第一份作品</p><small>生成外网链接，发给候选人即可开始收件。</small></div></section>
+  <section id="detail-panel" class="panel detail-panel" hidden><div class="panel-heading"><h2 id="detail-title">验收详情</h2><button id="close-detail" class="text-button">收起</button></div><div id="detail-results"></div><p id="detail-error" class="message"></p><details><summary>查看完整测试日志（仅面试官可见）</summary><pre id="detail-log"></pre></details></section>
+</main><footer class="page-footer">ERQI WORKSHOP <span>本地保存 · 手动验收 · 统一测试</span></footer>
+</body></html>

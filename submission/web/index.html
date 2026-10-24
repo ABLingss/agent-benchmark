@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>提交作品 · Agent Benchmark</title><link rel="stylesheet" href="/site.css"><script src="/app.js" defer></script></head>
+<body>
+<header class="topbar"><a class="brand" href="/">ERQI<span>AGENT BENCHMARK</span></a><span class="eyebrow">AI CODING · 现场提交</span></header>
+<main class="candidate-shell">
+  <section class="intro"><p class="eyebrow">从想法，到可验证的作品</p><h1>提交你的作品<span class="title-dot">.</span></h1><p class="lead">上传本次完成的代码，保存回执，等待面试官验收。</p></section>
+  <div class="candidate-grid">
+    <section class="panel form-panel"><form id="submission-form">
+      <div class="section-heading"><span class="step">01</span><h2>确认提交信息</h2></div>
+      <div class="field-grid"><label>姓名 / 面试编号<input id="candidate" name="candidate" placeholder="例如：张同学 / 001" maxlength="50" autocomplete="name" required></label><label>题目<select id="task" name="task"><option value="gateway">题一 · 推理网关</option><option value="frontend">题二 · 点餐结算页</option></select></label></div>
+      <label class="code-field">本场提交口令<input id="exam-code" name="exam-code" placeholder="由面试官提供" maxlength="64" autocomplete="off" required></label>
+      <div class="section-heading second-section"><span class="step">02</span><h2>选择代码压缩包</h2></div>
+      <label class="dropzone" id="dropzone" for="archive"><span class="upload-icon" aria-hidden="true">↑</span><strong id="file-label">点击选择，或拖入 ZIP 文件</strong><span class="muted">完整项目或对应题目目录均可，最大 20 MB</span><input id="archive" name="archive" type="file" accept=".zip,application/zip" required></label>
+      <p class="file-help">压缩时移除 <code>node_modules</code>、<code>.git</code> 和缓存。不需要上传 API Key。</p>
+      <div id="form-message" class="message" role="status" aria-live="polite"></div>
+      <button class="primary wide" id="submit-button" type="submit">提交作品 <span aria-hidden="true">↗</span></button>
+      <p class="fineprint">上传不会自动运行代码。面试官启动验收后，结果会在回执中更新。</p>
+    </form></section>
+    <aside class="side-stack">
+      <section class="panel receipt-panel" aria-live="polite"><div class="section-heading"><span class="step">03</span><h2>提交回执</h2></div>
+        <div id="receipt-empty" class="empty-state"><span class="empty-mark" aria-hidden="true">—</span><p>还没有提交</p><small>提交成功后，进度和结果会显示在这里。</small></div>
+        <div id="receipt" hidden><div class="receipt-top"><strong id="receipt-name"></strong><span id="receipt-status" class="badge"></span></div><p id="receipt-meta" class="muted"></p><code id="receipt-id" class="receipt-id"></code><div id="receipt-results"></div><p id="receipt-error" class="message"></p><button class="secondary wide" id="copy-receipt" type="button">复制回执链接</button><p class="fineprint">保存链接可在其他浏览器查看。回执只展示这份提交。</p></div>
+      </section>
+      <section class="side-note"><h3>提交前，最后确认一下</h3><p>代码已保存，能够按题目说明运行。公开测试的通过与失败，都如实保留。</p><a href="https://github.com/ABLingss/agent-benchmark" target="_blank" rel="noreferrer">查看题目与启动说明 ↗</a></section>
+      <section id="recent-panel" class="panel compact-panel" hidden><h3>本浏览器最近提交</h3><div id="recent-list"></div></section>
+    </aside>
+  </div>
+</main><footer class="page-footer">ERQI WORKSHOP <span>让作品说话。</span></footer>
+</body></html>
