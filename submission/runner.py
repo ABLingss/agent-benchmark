@@ -74,7 +74,7 @@ def unpack(path, destination):
     with zipfile.ZipFile(path) as archive:
         for entry, relative in checked_entries(archive):
             output = destination / relative
-            if entry.is_dir():
+            if entry.filename.replace("\\", "/").endswith("/"):
                 output.mkdir(parents=True, exist_ok=True)
             else:
                 output.parent.mkdir(parents=True, exist_ok=True)

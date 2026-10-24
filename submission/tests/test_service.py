@@ -11,7 +11,7 @@ from urllib.error import HTTPError
 from urllib.parse import urlencode
 from urllib.request import HTTPCookieProcessor, Request, build_opener, urlopen
 import zipfile
-from submission.runner import SubmissionError, checked_entries, environment, frontend_summary, unpack
+from submission.runner import SubmissionError, checked_entries, environment, frontend_summary, unpack, find_project
 from submission.server import State, make_server
 
 
@@ -23,7 +23,31 @@ def archive(entries):
     return stream.getvalue()
 
 
+def windows_archive():
+    stream = io.BytesIO()
+    with zipfile.ZipFile(stream, "w") as target:
+        for name, content in [("张同学\\gateway\\", ""),
+                              ("张同学\\gateway\\router.py", "# 中文代码\n"),
+                              ("张同学\\gateway\\proxy.py", ""),
+                              ("张同学\\gateway\\server.py", "")]:
+            entry = zipfile.ZipInfo(name)
+            entry.create_system = 0
+            entry.external_attr = 0x10 if name.endswith("\\") else 0x20
+            target.writestr(entry, content.encode("utf-8"))
+    return stream.getvalue()
+
+
 class ZipValidation(unittest.TestCase):
+    def test_windows_zip_with_chinese_paths_and_directory_entries(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            path = root / "代码.ZIP"
+            path.write_bytes(windows_archive())
+            unpack(path, root / "unpacked")
+            project = find_project(root / "unpacked", "gateway")
+            self.assertEqual(project, root / "unpacked/张同学/gateway")
+            self.assertEqual((project / "router.py").read_text(), "# 中文代码\n")
+
     def test_traversal(self):
         for name in ["../outside.py", "/outside.py", "C:/outside.py", "a\\..\\outside.py"]:
             with self.subTest(name=name), zipfile.ZipFile(io.BytesIO(archive([(name, "x")]))) as value:
@@ -125,6 +149,18 @@ class SubmissionHTTP(unittest.TestCase):
         self.assertEqual(self.call(path)[0], 403)
         self.assertEqual(self.call(path, headers={"X-Receipt-Token": result["receipt"]})[0], 200)
         self.assertEqual(self.call(path + "/archive", headers={"X-Receipt-Token": result["receipt"]})[0], 404)
+
+    def test_windows_upload_and_project_detection(self):
+        query = urlencode({"candidate": "Windows 张同学", "task": "gateway", "filename": "C:\\fakepath\\网关代码.ZIP"})
+        status, body, _ = self.call("/api/submit?" + query, windows_archive(),
+                                   headers={"Content-Type": "application/x-zip-compressed",
+                                            "X-Exam-Code": self.state.settings["exam_code"]})
+        self.assertEqual(status, 201, body)
+        result = json.loads(body)
+        self.assertEqual(result["submission"]["filename"], "网关代码.ZIP")
+        with tempfile.TemporaryDirectory() as directory:
+            unpack(self.state.uploads / (result["submission"]["id"] + ".zip"), Path(directory))
+            self.assertEqual(find_project(Path(directory), "gateway").name, "gateway")
 
     def test_admin_not_available_on_candidate_port(self):
         for path in ["/admin.js", "/api/submissions", "/api/tunnel/start"]:

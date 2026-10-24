@@ -13,6 +13,7 @@
       <div class="section-heading second-section"><span class="step">02</span><h2>选择代码压缩包</h2></div>
       <label class="dropzone" id="dropzone" for="archive"><span class="upload-icon" aria-hidden="true">↑</span><strong id="file-label">点击选择，或拖入 ZIP 文件</strong><span class="muted">完整项目或对应题目目录均可，最大 20 MB</span><input id="archive" name="archive" type="file" accept=".zip,application/zip" required></label>
       <p class="file-help">压缩时移除 <code>node_modules</code>、<code>.git</code> 和缓存。不需要上传 API Key。</p>
+      <details class="file-help"><summary>Windows / macOS 怎么打包提交？</summary><p>Windows：右键完成的题目文件夹，选择“压缩为 ZIP 文件”；Windows 10 选择“发送到 → 压缩(zipped)文件夹”。macOS：右键文件夹，选择“压缩”。然后在本页选择生成的 .zip 文件上传。</p><p>只打包题目文件夹，不要打包整个工作区。先移除 node_modules、.git、.venv 和缓存，保留代码和资源。支持中文文件夹名。浏览器提交即可，无需安装提交客户端，也不用运行 .command 文件。</p></details>
       <div id="form-message" class="message" role="status" aria-live="polite"></div>
       <button class="primary wide" id="submit-button" type="submit">提交作品 <span aria-hidden="true">↗</span></button>
       <p class="fineprint">上传不会自动运行代码。面试官启动验收后，结果会在回执中更新。</p>
